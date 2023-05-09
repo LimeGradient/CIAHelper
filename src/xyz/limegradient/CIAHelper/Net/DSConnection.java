@@ -2,11 +2,14 @@ package xyz.limegradient.CIAHelper.Net;
 
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbFile;
+import jcifs.smb.SmbFileInputStream;
+import jcifs.smb.SmbFileOutputStream;
 import xyz.limegradient.CIAHelper.GUI.GUI;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 
 public class DSConnection {
     public String name;
@@ -23,13 +26,10 @@ public class DSConnection {
     public void ConnectToDS() throws IOException {
         System.out.println(String.format("3DS Name: %s - User: %s - Pass: %s - System: %s", name, user, pass, System.getProperty("os.name")));
         String path = String.format("smb://%s/microSD", name);
-        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("", user, pass);
+        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("smb://"+name, user, pass);
         SmbFile smb = new SmbFile("smb://"+name+"/microSD", auth);
-        if (smb.isDirectory()) {
-            File file = new File("test.txt");
-            FileInputStream is = new FileInputStream(file);
-            System.out.println(is.read());
-            is.close();
+        for (SmbFile f : smb.listFiles()) {
+            System.out.println(f.getName());
         }
         GUI gui = new GUI();
         gui.ChangeFrameTitle(String.format("Connected to %s", name));
