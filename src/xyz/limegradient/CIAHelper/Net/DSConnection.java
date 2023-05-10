@@ -26,8 +26,8 @@ public class DSConnection {
     public void ConnectToDS() throws IOException {
         System.out.println(String.format("3DS Name: %s - User: %s - Pass: %s - System: %s", name, user, pass, System.getProperty("os.name")));
         String path = String.format("smb://%s/microSD/", name);
-        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("smb://"+name, user, pass);
-        SmbFile smb = new SmbFile("smb://"+name+"/microSD/", auth);
+        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(String.format("%s:%s", user, pass));
+        SmbFile smb = new SmbFile(path, auth);
         for (SmbFile f : smb.listFiles()) {
             System.out.println(f.getName());
         }
@@ -40,3 +40,10 @@ public class DSConnection {
 
     }
 }
+
+/*
+        SmbFile file = new SmbFile("smb://3ds-1674/microSD/test.txt", auth);
+        SmbFileInputStream is = new SmbFileInputStream(file);
+        String deocde = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        System.out.println(deocde);
+ */
