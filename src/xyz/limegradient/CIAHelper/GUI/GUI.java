@@ -10,16 +10,14 @@ import java.io.IOException;
 
 public class GUI {
 
-    public static JFrame f;
+    public JFrame frame;
 
     public JLabel _dsName = new JLabel();
     public JLabel _dsIp = new JLabel();
     public GUI() {
-
+        this.frame = new JFrame("CIAHelper by LimeGradient : No Connection ");
     }
     public void OpenGUI() {
-        JFrame frame = new JFrame("CIAHelper by LimeGradient : No Connection ");
-        SetFrame(frame);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(640, 480);
         JTextField dsName = new JTextField("3DS Name");
@@ -95,12 +93,8 @@ public class GUI {
         frame.setVisible(true);
     }
 
-    public void SetFrame(JFrame fr) {
-        this.f = fr;
-    }
-
     public void ChangeFrameTitle(String title) {
-        f.setTitle(String.format("CIAHelper by LimeGradient : %s", title));
+        this.frame.setTitle("CIAHelper by LimeGradient : "+title);
     }
 
 }

@@ -6,6 +6,7 @@ import jcifs.smb.SmbFileInputStream;
 import jcifs.smb.SmbFileOutputStream;
 import xyz.limegradient.CIAHelper.GUI.GUI;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -32,11 +33,10 @@ public class DSConnection {
             System.out.println(f.getName());
         }
         GUI gui = new GUI();
-        gui.ChangeFrameTitle(String.format("Connected to %s", name));
+        gui.frame.setTitle("CIAHelper by LimeGradient : "+name);
         gui._dsName.setText(name);
         gui._dsIp.setText(dsIp);
-        gui.f.repaint();
-        gui.f.revalidate();
+        SwingUtilities.updateComponentTreeUI(gui.frame);
 
     }
 }
